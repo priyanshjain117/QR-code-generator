@@ -126,10 +126,10 @@
       </div>
     </div>
 
-    <form action="/submit" method="post">
+    <form method="post" onsubmit="handleSubmit(e)">
       <div class="container">
-        <span class="prefix">https://</span>
-        <input class="myinput-link" placeholder="Site.com" />
+        <!-- <span class="prefix">https://</span> -->
+        <input class="myinput-link" placeholder="https://Site.com" />
         <span class="link-icon">
           🔗
           <span class="tooltip">COPY</span>
@@ -139,6 +139,8 @@
       <button class="btn" type="submit">
         <span class="btn_text">Lets goo!!</span>
       </button>
+      <br>
+      <p>Enter correct url...</p>
     </form>
   </div>
 

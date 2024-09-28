@@ -21,8 +21,17 @@ app.get("/",(req,res)=>{
   res.render("home");
 });
 
-app.post("/submit",(req,res)=>{
-  
+app.post("/qr-generate",(req,res)=>{
+  const {url}=req.body;
+  var qr_png = qr.image(url);
+  const filePath='/images/QR_code.png';
+  qr_png.pipe(fs.createWriteStream(filePath))
+    .on('finish', () => {
+        console.log('QR code saved to ' + filePath);
+    })
+    .on('error', (err) => {
+        console.error('Error saving QR code:', err);
+    });
 });
 
 

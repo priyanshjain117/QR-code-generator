@@ -213,9 +213,11 @@ a {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 0px 10px;
   height: 100%;
-  width: 160px;
+  width: 250px;
   background-color: #fff;
   font-size: 15px;
+  border-bottom-left-radius: .5rem;
+  border-top-left-radius: .5rem;
 }
 
 .link-icon {
@@ -400,4 +402,12 @@ a {
   right: 18px;
   top: 212px;
   width: 4px;
+}
+
+form p{
+  color: red;
+  font-weight: 600;
+  font:bolder;
+  font-size: 1.25rem;
+  padding-left: 2rem;
 }
