@@ -157,12 +157,12 @@ a {
     transform: scale(1.5); /* Adds a pulsing effect when active */
 }
 
-/* .follower {
+.follower {
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: rgba(255, 0, 0, 0.6); /* Red with transparency */
-  /* position: absolute; */
-  /* pointer-events: none; Make it unclickable */
-  /* transition: transform 0.1s ease; Smooth transition */
-/* } */
+  position: absolute;
+  pointer-events: none; /*Make it unclickable*/ 
+  transition: transform 0.1s ease;/* Smooth transition*/
+}
