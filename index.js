@@ -21,6 +21,10 @@ app.get("/",(req,res)=>{
   res.render("home");
 });
 
+app.post("/submit",(req,res)=>{
+  
+});
+
 
 
 const start = () => {
