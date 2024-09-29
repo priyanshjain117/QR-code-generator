@@ -114,7 +114,11 @@
           <div>55</div>
         </div> -->
         <div>
+          <% if (locals.image) { %>
+            <img src="/images/QR_code.png" alt="">
+          <%} else { %>
           <img src="" alt="">
+          <% } %>
         </div>
       </div>
       <div class="sideBtn"></div>
@@ -140,7 +144,7 @@
         <span class="btn_text">Lets goo!!</span>
       </button>
       <br>
-      <p>Enter correct url...</p>
+      <p class="hide">Enter correct url...</p>
     </form>
   </div>
 

@@ -411,3 +411,7 @@ form p{
   font-size: 1.25rem;
   padding-left: 2rem;
 }
+
+.hide{
+  display: none;
+}

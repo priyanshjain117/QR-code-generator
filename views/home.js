@@ -22,5 +22,41 @@ function validateURL(link){
 
 async function handleSubmit(e) {
     e.preventDefault();
-    validateURL(link);
+    if(validateURL(link)){
+        console.log("URL is valid. Proceeding with form submission...");
+        try {
+            const response = await fetch('/qr-generate', {
+                method: 'POST', 
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  url: link.value,
+                  check: true
+                })
+              });
+            
+        } catch (error) {
+            console.log("Error when url is valid.. "+err );
+            const warn=document.querySelector("form p");
+            warn
+        }
+    }else{
+        console.log("URL is invalid. Form submission halted.");
+        try {
+            const response = await fetch('/qr-generate', {
+                method: 'POST', 
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  url: link.value,
+                  check: false
+                })
+              });
+            
+        } catch (error) {
+            console.log("Error when url is not valid.. "+err );
+        }
+    }
 }

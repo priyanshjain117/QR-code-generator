@@ -16,22 +16,47 @@ app.use(express.json());
 
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'./views'))
-
+let withQr=false;
 app.get("/",(req,res)=>{
-  res.render("home");
+  if(withQr){
+    res.render("home",{
+      image:true
+    })
+  }else{
+    res.render("home");
+  }
+});
+
+app.post("/",(req,res)=>{
+  if(withQr){
+    res.render("home",{
+      image:true
+    })
+  }else{
+    res.render("home");
+  }
 });
 
 app.post("/qr-generate",(req,res)=>{
-  const {url}=req.body;
-  var qr_png = qr.image(url);
-  const filePath='/images/QR_code.png';
-  qr_png.pipe(fs.createWriteStream(filePath))
-    .on('finish', () => {
-        console.log('QR code saved to ' + filePath);
-    })
-    .on('error', (err) => {
-        console.error('Error saving QR code:', err);
-    });
+  const {url,check}=req.body;
+  if (check) {
+    
+      var qr_png = qr.image(url);
+      const filePath='/images/QR_code.png';
+
+      qr_png.pipe(fs.createWriteStream(filePath))
+      .on('finish', () => {
+          console.log('QR code saved to ' + filePath);
+      })
+      .on('error', (err) => {
+          console.error('Error saving QR code:', err);
+      });
+
+  } else {
+    res.redirect("/");
+  }
+  
+
 });
 
 
