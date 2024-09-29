@@ -1,62 +1,48 @@
-const link=document.querySelector(".myinput-link");
 
-function validateURL(link){
+document.addEventListener('DOMContentLoaded', () => {
+    const linkIcon = document.querySelector('.link-icon');
+    const tooltip = document.querySelector('.tooltip');
+    const inputField = document.querySelector('.myinput-link');
     
-    const url=link.value;
+    linkIcon.addEventListener('click', () => {
+        inputField.select();
+        document.execCommand('copy');
+        tooltip.textContent = 'Copied!';
+    });
 
-    const urlRegex1 = /^(https?:\/\/)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?(\?[^\s]*)?$/;
-    const urlRegex2 = /^(http?:\/\/)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?(\?[^\s]*)?$/;
+    linkIcon.addEventListener('mouseover', () => {
+        tooltip.style.visibility = 'visible';
+    });
 
-    if(!urlRegex1.test(url)){
-        if(!urlRegex2.test(url)){
-            alert("Please enter a valid URL starting with http:// or https:// and without spaces (e.g., https://example.com).");
-            return false;
-        }else{
-            return true;
+    linkIcon.addEventListener('mouseout', () => {
+        tooltip.style.visibility = 'hidden';
+        tooltip.textContent = 'COPY';
+    });
+    
+   
+    document.addEventListener('mousemove', (e) => {
+        const follower = document.querySelector('.follower');
+        const { clientX: x, clientY: y } = e;
+        follower.style.transform = `translate(${x - 10}px, ${y - 10}px)`;
+    });
+    
+   
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        const url = inputField.value;
+        if (!isValidURL(url)) {
+            e.preventDefault();
+            document.querySelector('.hide').style.display = 'block';
         }
-    }else{
-        return true;
+    });
+    
+    function isValidURL(str) {
+        const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+        return !!pattern.test(str);
     }
-
-}
-
-async function handleSubmit(e) {
-    e.preventDefault();
-    if(validateURL(link)){
-        console.log("URL is valid. Proceeding with form submission...");
-        try {
-            const response = await fetch('/qr-generate', {
-                method: 'POST', 
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  url: link.value,
-                  check: true
-                })
-              });
-            
-        } catch (error) {
-            console.log("Error when url is valid.. "+err );
-            const warn=document.querySelector("form p");
-            warn
-        }
-    }else{
-        console.log("URL is invalid. Form submission halted.");
-        try {
-            const response = await fetch('/qr-generate', {
-                method: 'POST', 
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  url: link.value,
-                  check: false
-                })
-              });
-            
-        } catch (error) {
-            console.log("Error when url is not valid.. "+err );
-        }
-    }
-}
+});
