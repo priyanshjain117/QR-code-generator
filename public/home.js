@@ -23,20 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mousemove', (e) => {
         const follower = document.querySelector('.follower');
         const { clientX: x, clientY: y } = e;
-        follower.style.transform = `translate(${x - 10}px, ${y - 10}px)`;
+        follower.style.transform = `translate(${x - 745}px, ${y -320}px)`;
     });
     
    
     const form = document.querySelector('form');
     form.addEventListener('submit', (e) => {
         const url = inputField.value;
+        console.log("hiii4");
+
         if (!isValidURL(url)) {
             e.preventDefault();
+            console.log("url wrongg");
             document.querySelector('.hide').style.display = 'block';
         }
     });
     
     function isValidURL(str) {
+        console.log("hiii");
         const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
             '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
             '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
