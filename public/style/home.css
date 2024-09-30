@@ -405,7 +405,6 @@ a {
 }
 
 form p{
-  color: red;
   font-weight: 600;
   font:bolder;
   font-size: 1.25rem;
@@ -414,4 +413,16 @@ form p{
 
 .hide{
   display: none;
+  color: red;
+}
+
+@media (max-width: 600px) {
+  .box {
+      flex-direction: column;
+      width: 100%;
+  }
+  .btn {
+      width: 100%;
+      font-size: 24px;
+  }
 }

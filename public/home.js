@@ -30,24 +30,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     form.addEventListener('submit', (e) => {
         const url = inputField.value;
-        console.log("hiii4");
-
+        console.log("Validating URL:", url);
+    
         if (!isValidURL(url)) {
-            e.preventDefault();
-            console.log("url wrongg");
+            e.preventDefault(); // Prevent form submission if the URL is invalid
+            console.log("Invalid URL");
             document.querySelector('.hide').style.display = 'block';
+        } else {
+            console.log("Input value:", inputField.value);
+            document.querySelector('.hide').style.display = 'none';
         }
-        console.log("hiii5");
     });
     
+    
     function isValidURL(str) {
-        console.log("hiii");
-        const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+        const pattern = new RegExp(
+            '^(https?:\\/\\/)?' + // protocol (optional)
             '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
-            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path (optional)
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string (optional)
+            '(\\#[-a-z\\d_]*)?$', 'i' // fragment locator (optional)
+        );
         return !!pattern.test(str);
     }
 });
