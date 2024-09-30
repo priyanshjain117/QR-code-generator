@@ -123,7 +123,7 @@
           <%# } %>  -->
 
           <!--for vercel deployment: -->
-          <% if (image) { %>
+          <% if (locals.image) { %>
             <img src="<%= image %>" alt="QR Code">
           <% } else { %>
             <img src="" alt="">
