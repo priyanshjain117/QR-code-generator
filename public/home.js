@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("url wrongg");
             document.querySelector('.hide').style.display = 'block';
         }
+        console.log("hiii5");
     });
     
     function isValidURL(str) {
