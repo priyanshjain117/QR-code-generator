@@ -29,35 +29,46 @@ app.get("/",(req,res)=>{
   }
 });
 
-// app.post("/",(req,res)=>{
-//     res.render('home',{
-//       image:withQr
-//     })
+
+// //for local host:
+// app.post("/qr-generate",(req,res)=>{
+//   const {url,check}=req.body;
+//   if (url) {
+    
+//       var qr_png = qr.image(url);
+//       const filePath = path.join(__dirname, 'public/images/QR_code.png');
+
+//       qr_png.pipe(fs.createWriteStream(filePath))
+//       .on('finish', () => {
+//           withQr = true;
+//           res.redirect("/");
+//           console.log('QR code saved to ' + filePath);
+//       })
+//       .on('error', (err) => {
+//           console.error('Error saving QR code:', err);
+//           res.redirect("/");
+//       });
+
+//   } else {
+//     res.redirect("/");
+//   }
+
 // });
 
-app.post("/qr-generate",(req,res)=>{
-  const {url,check}=req.body;
+//for vercel deployment:
+app.post("/qr-generate", (req, res) => {
+  const { url } = req.body;
   if (url) {
-    
-      var qr_png = qr.image(url);
-      const filePath = path.join(__dirname, 'public/images/QR_code.png');
+    var qr_svg = qr.imageSync(url, { type: 'png' });//binary-data
+    const base64Image = Buffer.from(qr_svg).toString('base64');//converts binary data of img into base64 string format
+    const imageSrc = `data:image/png;base64,${base64Image}`; //This step creates an inline data URI. A data URI allows you to embed the image directly in an HTML document as a string, rather than loading it from a file.
 
-      qr_png.pipe(fs.createWriteStream(filePath))
-      .on('finish', () => {
-          withQr = true;
-          res.redirect("/");
-          console.log('QR code saved to ' + filePath);
-      })
-      .on('error', (err) => {
-          console.error('Error saving QR code:', err);
-          res.redirect("/");
-      });
-
+    res.render("home", {
+      image: imageSrc
+    });
   } else {
     res.redirect("/");
   }
-  
-
 });
 
 

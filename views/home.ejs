@@ -115,11 +115,20 @@
           <div>55</div>
         </div> -->
         <div>
-          <% if (locals.image) { %>
+          <!-- for local host:
+          <%#if (locals.image) { %>
             <img src="/images/QR_code.png" alt="">
-          <%} else { %>
+          <%#} else { %>
           <img src="" alt="">
+          <%# } %>  -->
+
+          <!--for vercel deployment: -->
+          <% if (image) { %>
+            <img src="<%= image %>" alt="QR Code">
+          <% } else { %>
+            <img src="" alt="">
           <% } %>
+          
         </div>
       </div>
       <div class="sideBtn"></div>
